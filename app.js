@@ -95,7 +95,7 @@ const connect = async () => {
     
     // chatgpt was used here to troubleshoot how to contact (which syntax to use - for example '.-id') as I was having hard time deciiphering how to commuicate with a database object.
     if(userSelected3) {
-        console.log(`you've selected ${userSelected3}, update customer\n`)
+        console.log(`you've selected ${userSelected3}, update customer`)
         console.log("Here is a list of your customers:\n")
         customers.forEach((customer) => {
             console.log(`id: ${customer._id} -- Name: ${customer.Name}, Age: ${customer.Age}`)
