@@ -62,6 +62,38 @@ const connect = async () => {
 
     const customers = await Customer.find({})    
 
+    // <---------------------------- creating functions ------------------------------->
+
+    const update = async (userId) => {
+        newName = prompt(`what is the customers new name?`)
+        newAge = prompt('What is the customer new age?')
+
+        const updateCustomerInfo = await Customer.findByIdAndUpdate(
+            userId,
+            {Name: newName, Age: newAge},
+            {new: true}    
+        )
+        console.log(updateCustomerInfo)
+    }
+
+    // const userRespone = async (userChoice) => {
+    //     if(userChoice === menuChoice.one || userChoice === menuChoice.create){
+    //         userSelected1 = 1
+    //     } else if (userChoice === menuChoice.two || userChoice === menuChoice.view){
+    //         userSelected2 = 2
+    //     } else if (userChoice === menuChoice.three || userChoice === menuChoice.update){
+    //         userSelected3 = 3
+    //     } else if (userChoice === menuChoice.four || userChoice === menuChoice.delete){
+    //         userSelected4 = 4
+    //     } else if (userChoice === menuChoice.five || userChoice === menuChoice.quit){
+    //         userSelected5 = 5
+    //     }
+    // }
+
+    // const askUser = async () => {
+    //     userChoice = prompt('What would you like to do?'.toLowerCase());
+    //     userRespone(userChoice)
+    // }
 
     // <---------------------------- starting prompts ------------------------------->
     console.log('Welcome to our CRM Tool');
@@ -81,6 +113,8 @@ const connect = async () => {
 
     userChoice = prompt('What would you like to do?'.toLowerCase());
 
+    // askUser()
+
     if(userChoice === menuChoice.one || userChoice === menuChoice.create){
         userSelected1 = 1
     } else if (userChoice === menuChoice.two || userChoice === menuChoice.view){
@@ -93,18 +127,28 @@ const connect = async () => {
         userSelected5 = 5
     }
     
-    // chatgpt was used here to troubleshoot how to contact (which syntax to use - for example '.-id') as I was having hard time deciiphering how to commuicate with a database object.
+    // chatgpt was used here to troubleshoot how to contact (which syntax to use - for example '.-id') as I was having hard time deciiphering how to commuicate with a database object. The logic, the code itself, was all by hand.  
     if(userSelected3) {
         console.log(`you've selected ${userSelected3}, update customer`)
         console.log("Here is a list of your customers:\n")
         customers.forEach((customer) => {
             console.log(`id: ${customer._id} -- Name: ${customer.Name}, Age: ${customer.Age}`)
         })
-    } 
-    
-    captureId = prompt(console.log("Copy and paste the id of the customer you would like update here:"))
+        captureId = prompt(console.log("Copy and paste the id of the customer you would like update here:"))
+        // update() <---- calling this for a pretty long time without realizing that I wasn't inserting the captured info - the function would run - but nothing would be updated - returning a 'null' 
+        update(captureId)
+    }
+
+    // askUser()
+
+    if(userSelected2 === 2) {
+        console.log(`you've selected ${userSelected}, view all customers`)
+        console.log("Here is a list of your customers:\n")
+        customers.forEach((customer) => {
+            console.log(`id: ${customer._id} -- Name: ${customer.Name}, Age: ${customer.Age}`)
+        })
+    }
 
 }
-
 
 connect()
